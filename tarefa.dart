@@ -30,6 +30,14 @@ class Tarefa {
 
   @override
   String toString() {
-    return "id: ${this.id}, titulo: ${this.titulo}, responsavel: ${this.responsavel}, status: ${this.status}, prioridade: ${this.prioridade}, valor: ${this.valor}, horas: ${this.horas}";
+    return '''
+    ID: ${this.id},
+    Título: ${this.titulo},
+    Responsável: ${this.responsavel},
+    Status: ${this.status},
+    Prioridade: ${this.prioridade},
+    Valor: R\$ ${this.valor},
+    Horas: ${this.horas}
+    ''';
   }
 }
