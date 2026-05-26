@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Tarefa {
   int id;
   String titulo;
