@@ -19,23 +19,35 @@ class Tarefa {
 
   Tarefa.fromMap(Map<String, dynamic> map)
     : this.id = map["id"],
-      this.titulo = (map["titulo"] as String?)?.trim() ?? "Sem título",
-      this.responsavel =
-          (map["responsavel"] as String?)?.trim() ?? "Não informado",
-      this.status = (map["status"] as String?)?.trim() ?? "sem status",
-      this.prioridade =
-          (map["prioridade"] as String?)?.trim() ?? "sem prioridade",
-      this.valor =
-          double.tryParse(
-            map["valor"]
-                .replaceAll(RegExp(r'[^\d,.]'), "")
-                .replaceAll(",", "."),
-          ) ??
-          0.0,
-      this.horas = int.tryParse(map["horas"]) ?? 0;
+      this.titulo = filtrarTexto(map["titulo"]) ?? "Sem título",
+      this.responsavel = filtrarTexto(map["responsavel"]) ?? "Não informado",
+      this.status = filtrarTexto(map["status"]) ?? "sem status",
+      this.prioridade = filtrarTexto(map["prioridade"]) ?? "sem prioridade",
+      this.valor = converterValor(map["valor"]) ?? 0.0,
+      this.horas = converterHoras(map["horas"]) ?? 0;
 
   @override
   String toString() {
     return "id: ${this.id}, titulo: ${this.titulo}, responsavel: ${this.responsavel}, status: ${this.status}, prioridade: ${this.prioridade}, valor: ${this.valor}, horas: ${this.horas}";
   }
+}
+
+String? filtrarTexto(String? texto) {
+  if (texto == null) return null;
+
+  return texto.trim();
+}
+
+double? converterValor(String? valor) {
+  if (valor == null) return null;
+
+  return double.tryParse(
+    valor.replaceAll(RegExp(r'[^\d,.]'), "").replaceAll(",", "."),
+  );
+}
+
+int? converterHoras(String? horas) {
+  if (horas == null) return null;
+
+  return int.tryParse(horas);
 }
