@@ -20,9 +20,9 @@ class Tarefa {
   Tarefa.fromMap(Map<String, dynamic> map)
     : this.id = map["id"],
       this.titulo = map["titulo"].trim() ?? "Sem título",
-      this.responsavel = map["responsavel"] ?? "Não informado",
-      this.status = map["status"] ?? "sem status",
-      this.prioridade = map["prioridade"] ?? "sem prioridade",
+      this.responsavel = map["responsavel"].trim() ?? "Não informado",
+      this.status = map["status"].trim() ?? "sem status",
+      this.prioridade = map["prioridade"].trim() ?? "sem prioridade",
       this.valor =
           double.tryParse(
             map["valor"]
