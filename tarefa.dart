@@ -1,3 +1,5 @@
+import 'conversores.dart';
+
 class Tarefa {
   int id;
   String titulo;
@@ -30,24 +32,4 @@ class Tarefa {
   String toString() {
     return "id: ${this.id}, titulo: ${this.titulo}, responsavel: ${this.responsavel}, status: ${this.status}, prioridade: ${this.prioridade}, valor: ${this.valor}, horas: ${this.horas}";
   }
-}
-
-String? filtrarTexto(String? texto) {
-  if (texto == null) return null;
-
-  return texto.trim();
-}
-
-double? converterValor(String? valor) {
-  if (valor == null) return null;
-
-  return double.tryParse(
-    valor.replaceAll(RegExp(r'[^\d,.]'), "").replaceAll(",", "."),
-  );
-}
-
-int? converterHoras(String? horas) {
-  if (horas == null) return null;
-
-  return int.tryParse(horas);
 }
