@@ -2,7 +2,9 @@ import 'dados.dart';
 import 'tarefa.dart';
 
 void main() {
-  final tarefa = Tarefa.fromMap(dadosTarefas[0]);
+  final tarefas = dadosTarefas.map((e) => Tarefa.fromMap(e)).toList();
 
-  print(tarefa);
+  for (var tarefa in tarefas) {
+    print(tarefa);
+  }
 }
