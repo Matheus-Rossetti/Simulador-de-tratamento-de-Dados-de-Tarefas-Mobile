@@ -19,10 +19,12 @@ class Tarefa {
 
   Tarefa.fromMap(Map<String, dynamic> map)
     : this.id = map["id"],
-      this.titulo = map["titulo"].trim() ?? "Sem título",
-      this.responsavel = map["responsavel"].trim() ?? "Não informado",
-      this.status = map["status"].trim() ?? "sem status",
-      this.prioridade = map["prioridade"].trim() ?? "sem prioridade",
+      this.titulo = (map["titulo"] as String?)?.trim() ?? "Sem título",
+      this.responsavel =
+          (map["responsavel"] as String?)?.trim() ?? "Não informado",
+      this.status = (map["status"] as String?)?.trim() ?? "sem status",
+      this.prioridade =
+          (map["prioridade"] as String?)?.trim() ?? "sem prioridade",
       this.valor =
           double.tryParse(
             map["valor"]
