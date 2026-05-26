@@ -1,3 +1,5 @@
+import 'conversores.dart';
+
 class Tarefa {
   int id;
   String titulo;
@@ -19,18 +21,12 @@ class Tarefa {
 
   Tarefa.fromMap(Map<String, dynamic> map)
     : this.id = map["id"],
-      this.titulo = map["titulo"].trim() ?? "Sem título",
-      this.responsavel = map["responsavel"].trim() ?? "Não informado",
-      this.status = map["status"].trim() ?? "sem status",
-      this.prioridade = map["prioridade"].trim() ?? "sem prioridade",
-      this.valor =
-          double.tryParse(
-            map["valor"]
-                .replaceAll(RegExp(r'[^\d,.]'), "")
-                .replaceAll(",", "."),
-          ) ??
-          0.0,
-      this.horas = int.tryParse(map["horas"]) ?? 0;
+      this.titulo = filtrarTexto(map["titulo"]) ?? "Sem título",
+      this.responsavel = filtrarTexto(map["responsavel"]) ?? "Não informado",
+      this.status = filtrarTexto(map["status"]) ?? "sem status",
+      this.prioridade = filtrarTexto(map["prioridade"]) ?? "sem prioridade",
+      this.valor = converterValor(map["valor"]) ?? 0.0,
+      this.horas = converterHoras(map["horas"]) ?? 0;
 
   @override
   String toString() {
