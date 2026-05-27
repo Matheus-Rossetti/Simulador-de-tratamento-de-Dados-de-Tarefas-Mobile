@@ -11,10 +11,11 @@ class Relatorio {
     final tarefas = dadosTarefas.map((e) => Tarefa.fromMap(e)).toList();
 
     final Map<String, List<String>> status = {
-      "concluidas": [],
+      "concluida": [],
       "em andamento": [],
       "pendente": [],
-      "canceladas": [],
+      "cancelada": [],
+      "sem status": [],
     };
 
     for (var tarefa in tarefas) {
@@ -32,7 +33,6 @@ class Relatorio {
 
   void printarRelatorio() {
     print("Tarefas concluídas");
-
-    _status["concluidas"]!.map((e) => print("-- $e"));
+    _status["concluida"]!.forEach((e) => print("-- $e"));
   }
 }
