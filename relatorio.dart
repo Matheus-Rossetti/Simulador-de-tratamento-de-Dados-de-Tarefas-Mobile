@@ -1,22 +1,28 @@
 import 'tarefa.dart';
-import 'dados.dart';
 
 class Relatorio {
-  final List<Tarefa> _tarefas;
+  final int _totalTarefasAnalisadas;
+  final int _totalTarefasConcluidas;
+  final int _totalTarefasEmAndamento;
+  final int _totalTarefasCanceladas;
+
+  final double _valorTotalConcluidas;
+  final double _valorTotalPendentes;
+  final int _totalHorasConcluidas;
+
+  final Set<String> statusEncontrados;
+
   final Map<String, List<String>> _status;
   final double _valorTotalTarefasConcluidas;
   final double _valorTotalTarefasPendentes;
 
   Relatorio._interno({
-    required this._tarefas,
     required this._status,
     required this._valorTotalTarefasConcluidas,
     required this._valorTotalTarefasPendentes,
   });
 
-  factory Relatorio() {
-    final tarefas = dadosTarefas.map((e) => Tarefa.fromMap(e)).toList();
-
+  factory Relatorio.fromTarefas(List<Tarefa> tarefas) {
     final Map<String, List<String>> status = {
       "concluida": [],
       "em andamento": [],
