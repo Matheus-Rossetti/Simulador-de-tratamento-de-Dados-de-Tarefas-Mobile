@@ -1,0 +1,87 @@
+import 'tarefa.dart';
+import 'dados.dart';
+
+class Relatorio {
+  final List<Tarefa> _tarefas;
+  final Map<String, List<String>> _status;
+  final double _valorTotalTarefasConcluidas;
+  final double _valorTotalTarefasPendentes;
+
+  Relatorio._interno({
+    required this._tarefas,
+    required this._status,
+    required this._valorTotalTarefasConcluidas,
+    required this._valorTotalTarefasPendentes,
+  });
+
+  factory Relatorio() {
+    final tarefas = dadosTarefas.map((e) => Tarefa.fromMap(e)).toList();
+
+    final Map<String, List<String>> status = {
+      "concluida": [],
+      "em andamento": [],
+      "pendente": [],
+      "cancelada": [],
+      "sem status": [],
+    };
+
+    double valorTotalTarefasConcluidas = 0;
+    double valorTotalTarefasPendentes = 0;
+
+    for (var tarefa in tarefas) {
+      status[tarefa.status]!.add(tarefa.titulo);
+
+      if (tarefa.status == "concluida") {
+        valorTotalTarefasConcluidas += tarefa.valor;
+      }
+
+      if (tarefa.status == "pendente") {
+        valorTotalTarefasPendentes += tarefa.valor;
+      }
+    }
+
+    return Relatorio._interno(
+      tarefas: tarefas,
+      status: status,
+      valorTotalTarefasConcluidas: valorTotalTarefasConcluidas,
+      valorTotalTarefasPendentes: valorTotalTarefasPendentes,
+    );
+  }
+
+  void printarTarefas() {
+    for (var tarefa in _tarefas) {
+      print(tarefa);
+    }
+  }
+
+  void printarPorStatus() {
+    print("\nTarefas concluídas");
+    _status["concluida"]!.forEach((e) => print("-- $e"));
+
+    print("\nTarefas em andamento");
+    _status["em andamento"]!.forEach((e) => print("-- $e"));
+
+    print("\nTarefas pendentes");
+    _status["pendente"]!.forEach((e) => print("-- $e"));
+
+    print("\nTarefas canceladas");
+    _status["cancelada"]!.forEach((e) => print("-- $e"));
+
+    print("\nTarefas sem status");
+    _status["sem status"]!.forEach((e) => print("-- $e"));
+  }
+
+  void printarValorTarefasConcluidas() {
+    print(
+      "\nTotal de tarefas concluídas: R\$ ${_valorTotalTarefasConcluidas.toString().replaceAll(".", ",")}",
+    );
+  }
+
+  void printarMediaValorTarefasPendentes() {
+    _status["pendente"]!.isEmpty
+        ? print("\nNão existem tarefas pendentes para calcular a média")
+        : print(
+            "\nMédia de valor das tarefas pendentes: R\$ ${_valorTotalTarefasPendentes / _status["pendente"]!.length}",
+          );
+  }
+}
