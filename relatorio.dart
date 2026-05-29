@@ -4,12 +4,14 @@ import 'dados.dart';
 class Relatorio {
   final List<Tarefa> _tarefas;
   final Map<String, List<String>> _status;
-  final double _totalTarefasConcluidas;
+  final double _valorTotalTarefasConcluidas;
+  final double _valorTotalTarefasPendentes;
 
   Relatorio._interno({
     required this._tarefas,
     required this._status,
-    required this._totalTarefasConcluidas,
+    required this._valorTotalTarefasConcluidas,
+    required this._valorTotalTarefasPendentes,
   });
 
   factory Relatorio() {
@@ -23,20 +25,26 @@ class Relatorio {
       "sem status": [],
     };
 
-    double totalTarefasConcluidas = 0;
+    double valorTotalTarefasConcluidas = 0;
+    double valorTotalTarefasPendentes = 0;
 
     for (var tarefa in tarefas) {
       status[tarefa.status]!.add(tarefa.titulo);
 
       if (tarefa.status == "concluida") {
-        totalTarefasConcluidas += tarefa.valor;
+        valorTotalTarefasConcluidas += tarefa.valor;
+      }
+
+      if (tarefa.status == "pendente") {
+        valorTotalTarefasPendentes += tarefa.valor;
       }
     }
 
     return Relatorio._interno(
       tarefas: tarefas,
       status: status,
-      totalTarefasConcluidas: totalTarefasConcluidas,
+      valorTotalTarefasConcluidas: valorTotalTarefasConcluidas,
+      valorTotalTarefasPendentes: valorTotalTarefasPendentes,
     );
   }
 
@@ -65,7 +73,15 @@ class Relatorio {
 
   void printarValorTarefasConcluidas() {
     print(
-      "\nTotal de tarefas concluídas R\$ ${_totalTarefasConcluidas.toString().replaceAll(".", ",")}",
+      "\nTotal de tarefas concluídas: R\$ ${_valorTotalTarefasConcluidas.toString().replaceAll(".", ",")}",
     );
+  }
+
+  void printarMediaValorTarefasPendentes() {
+    _status["pendente"]!.isEmpty
+        ? print("\nNão existem tarefas pendentes para calcular a média")
+        : print(
+            "\nMédia de valor das tarefas pendentes: R\$ ${_valorTotalTarefasPendentes / _status["pendente"]!.length}",
+          );
   }
 }

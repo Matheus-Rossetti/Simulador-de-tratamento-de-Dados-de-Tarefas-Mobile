@@ -5,4 +5,5 @@ void main() {
   relatorio.printarTarefas();
   relatorio.printarPorStatus();
   relatorio.printarValorTarefasConcluidas();
+  relatorio.printarMediaValorTarefasPendentes();
 }
