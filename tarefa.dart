@@ -31,12 +31,12 @@ class Tarefa {
   @override
   String toString() {
     return '''
-    ID: ${this.id},
-    Título: ${this.titulo},
-    Responsável: ${this.responsavel},
-    Status: ${this.status},
-    Prioridade: ${this.prioridade},
-    Valor: R\$ ${this.valor},
+    ID: ${this.id}
+    Título: ${this.titulo}
+    Responsável: ${this.responsavel}
+    Status: ${this.status}
+    Prioridade: ${this.prioridade}
+    Valor: R\$ ${this.valor.toString().replaceAll(".", ",")}
     Horas: ${this.horas}
     ''';
   }

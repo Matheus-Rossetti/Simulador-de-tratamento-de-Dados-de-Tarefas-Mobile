@@ -48,7 +48,7 @@ final List<Map<String, dynamic>> dadosTarefas = [
     'id': 6,
     'titulo': 'Implementar validação de dados',
     'responsavel': 'Eduarda',
-    'status': 'concluida',
+    'status': null,
     'prioridade': 'alta',
     'valor': 'R\$ 200,00',
     'horas': '4',
