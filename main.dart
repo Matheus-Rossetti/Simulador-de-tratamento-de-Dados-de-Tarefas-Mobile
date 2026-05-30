@@ -48,6 +48,14 @@ void main() {
           "\nMédia de valor das tarefas pendentes: R\$ ${calcularMedia(tarefasPendentes)}",
         );
 
+  final horasPorStatus = tarefas.fold(<String, int>{}, (map, tarefa) {
+    map[tarefa.status] = map[tarefa.status]! + tarefa.horas;
+    return map;
+  });
+
+  print("Horas por status:");
+  horasPorStatus.forEach((status, horas) => print("$status: $horas"));
+
   // final relatorio = Relatorio.fromTarefas(tarefas);
   // relatorio.printarTarefas();
   // relatorio.printarPorStatus();
