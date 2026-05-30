@@ -23,8 +23,8 @@ class Tarefa {
     : this.id = map["id"],
       this.titulo = filtrarTexto(map["titulo"]) ?? "Sem título",
       this.responsavel = filtrarTexto(map["responsavel"]) ?? "Não informado",
-      this.status = filtrarTexto(map["status"]) ?? "sem status",
-      this.prioridade = filtrarTexto(map["prioridade"]) ?? "sem prioridade",
+      this.status = filtrarTexto(map["status"]) ?? "Sem status",
+      this.prioridade = filtrarTexto(map["prioridade"]) ?? "Sem prioridade",
       this.valor = converterValor(map["valor"]) ?? 0.0,
       this.horas = converterHoras(map["horas"]) ?? 0;
 

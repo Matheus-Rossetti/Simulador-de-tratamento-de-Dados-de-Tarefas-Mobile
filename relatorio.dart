@@ -54,29 +54,6 @@ class Relatorio {
     );
   }
 
-  void printarTarefas() {
-    for (var tarefa in _tarefas) {
-      print(tarefa);
-    }
-  }
-
-  void printarPorStatus() {
-    print("\nTarefas concluídas");
-    _status["concluida"]!.forEach((e) => print("-- $e"));
-
-    print("\nTarefas em andamento");
-    _status["em andamento"]!.forEach((e) => print("-- $e"));
-
-    print("\nTarefas pendentes");
-    _status["pendente"]!.forEach((e) => print("-- $e"));
-
-    print("\nTarefas canceladas");
-    _status["cancelada"]!.forEach((e) => print("-- $e"));
-
-    print("\nTarefas sem status");
-    _status["sem status"]!.forEach((e) => print("-- $e"));
-  }
-
   void printarValorTarefasConcluidas() {
     print(
       "\nTotal de tarefas concluídas: R\$ ${_valorTotalTarefasConcluidas.toString().replaceAll(".", ",")}",
