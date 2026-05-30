@@ -53,11 +53,5 @@
 //     );
 //   }
 
-//   void printarMediaValorTarefasPendentes() {
-//     _status["pendente"]!.isEmpty
-//         ? print("\nNão existem tarefas pendentes para calcular a média")
-//         : print(
-//             "\nMédia de valor das tarefas pendentes: R\$ ${_valorTotalTarefasPendentes / _status["pendente"]!.length}",
-//           );
 //   }
-// }
+// k}

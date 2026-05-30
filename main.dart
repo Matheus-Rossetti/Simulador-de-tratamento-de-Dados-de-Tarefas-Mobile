@@ -2,11 +2,15 @@ import 'tarefa.dart';
 import 'dados.dart';
 import 'relatorio.dart';
 
-void printarPorStatus(List<Tarefa> tarefas, String status) {
-  tarefas
-      .where((e) => e.status == status)
-      .forEach((e) => print("-- ${e.titulo}"));
-}
+void printarPorStatus(List<Tarefa> tarefas, String status) => tarefas
+    .where((e) => e.status == status)
+    .forEach((e) => print("-- ${e.titulo}"));
+
+double calcularMedia(List<Tarefa> tarefasPendentes) =>
+    tarefasPendentes
+        .map((e) => e.valor)
+        .reduce((value, element) => value + element) /
+    tarefasPendentes.length;
 
 void main() {
   final tarefas = dadosTarefas.map((e) => Tarefa.fromMap(e)).toList();
@@ -29,10 +33,21 @@ void main() {
   printarPorStatus(tarefas, "cancelada");
 
   final total = tarefas
-      .where((e) => e.status == 'concluida')
+      .where((e) => e.status == "concluida")
       .map((e) => e.valor)
       .reduce((value, element) => value + element);
   print("\nTotal de tarefas concluidas: R\$ $total");
+
+  final tarefasPendentes = tarefas
+      .where((e) => e.status == "pendente")
+      .toList();
+
+  tarefasPendentes.isEmpty
+      ? print("Não existem tarefas pendentes para calcular a média.")
+      : print(
+          "\nMédia de valor das tarefas pendentes: R\$ ${calcularMedia(tarefasPendentes)}",
+        );
+
   // final relatorio = Relatorio.fromTarefas(tarefas);
   // relatorio.printarTarefas();
   // relatorio.printarPorStatus();
