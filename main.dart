@@ -27,6 +27,12 @@ void main() {
 
   print("\nTarefas Canceladas:");
   printarPorStatus(tarefas, "cancelada");
+
+  final total = tarefas
+      .where((e) => e.status == 'concluida')
+      .map((e) => e.valor)
+      .reduce((value, element) => value + element);
+  print("\nTotal de tarefas concluidas: R\$ $total");
   // final relatorio = Relatorio.fromTarefas(tarefas);
   // relatorio.printarTarefas();
   // relatorio.printarPorStatus();
