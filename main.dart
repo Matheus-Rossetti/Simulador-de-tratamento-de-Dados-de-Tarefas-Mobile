@@ -49,13 +49,15 @@ void main() {
         );
 
   final horasPorStatus = tarefas.fold(<String, int>{}, (map, tarefa) {
-    map[tarefa.status] = map[tarefa.status]! + tarefa.horas;
+    map[tarefa.status] = (map[tarefa.status] ?? 0) + tarefa.horas;
+    print(map[tarefa.status]);
     return map;
   });
 
-  print("Horas por status:");
+  print("\nHoras por status:");
   horasPorStatus.forEach((status, horas) => print("$status: $horas"));
 
+  tarefas.forEach((e) => e.titulo);
   // final relatorio = Relatorio.fromTarefas(tarefas);
   // relatorio.printarTarefas();
   // relatorio.printarPorStatus();
