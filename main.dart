@@ -67,6 +67,13 @@ void main() {
 
     if (problemas.isNotEmpty) print("- ID ${e.id}: ${problemas.join(", ")}");
   });
+
+  final Set<String> statusEncotrados = {};
+  tarefas.forEach((e) => statusEncotrados.add(e.status));
+
+  print("\nStatus encontrados:");
+  statusEncotrados.forEach((e) => print(e));
+
   // final relatorio = Relatorio.fromTarefas(tarefas);
   // relatorio.printarTarefas();
   // relatorio.printarPorStatus();
