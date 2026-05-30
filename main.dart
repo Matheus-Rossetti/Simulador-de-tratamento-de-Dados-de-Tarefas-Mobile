@@ -1,6 +1,5 @@
 import 'tarefa.dart';
 import 'dados.dart';
-import 'relatorio.dart';
 
 void printarPorStatus(List<Tarefa> tarefas, String status) => tarefas
     .where((e) => e.status == status)
@@ -50,14 +49,24 @@ void main() {
 
   final horasPorStatus = tarefas.fold(<String, int>{}, (map, tarefa) {
     map[tarefa.status] = (map[tarefa.status] ?? 0) + tarefa.horas;
-    print(map[tarefa.status]);
     return map;
   });
 
   print("\nHoras por status:");
   horasPorStatus.forEach((status, horas) => print("$status: $horas"));
 
-  tarefas.forEach((e) => e.titulo);
+  print("\nTarefas com dados incompletos:");
+  tarefas.forEach((e) {
+    final List<String> problemas = [];
+    if (e.titulo == "Sem título") problemas.add("Título ausente");
+    if (e.responsavel == "Não informado") problemas.add("Responsável ausente");
+    if (e.status == "Sem status") problemas.add("Status ausente");
+    if (e.prioridade == "Sem prioridade") problemas.add("Prioridade ausente");
+    if (e.valor == 0.0) problemas.add("Valor ausente");
+    if (e.horas == 0) problemas.add("Horas ausentes");
+
+    if (problemas.isNotEmpty) print("- ID ${e.id}: ${problemas.join(", ")}");
+  });
   // final relatorio = Relatorio.fromTarefas(tarefas);
   // relatorio.printarTarefas();
   // relatorio.printarPorStatus();
