@@ -1,57 +1,69 @@
-// import 'tarefa.dart';
+import 'tarefa.dart';
 
-// class Relatorio {
-//   final int _totalTarefasAnalisadas;
-//   final int _totalTarefasConcluidas;
-//   final int _totalTarefasEmAndamento;
-//   final int _totalTarefasCanceladas;
+class RelatorioSimples {
+  final int _totalTarefasAnalisadas;
+  final int _totalConcluidas;
+  final int _totalpendentes;
+  final int _totalEmAndamento;
+  final int _totalCanceladas;
 
-//   final double _valorTotalConcluidas;
-//   final double _valorTotalPendentes;
-//   final int _totalHorasConcluidas;
+  RelatorioSimples({
+    required this._totalTarefasAnalisadas,
+    required this._totalConcluidas,
+    required this._totalpendentes,
+    required this._totalEmAndamento,
+    required this._totalCanceladas,
+  });
 
-//   final Set<String> statusEncontrados;
+  void gerar() => print('''
+    Total de tarefas analisadas: $_totalTarefasAnalisadas
+    Tarefas concluidas: $_totalConcluidas
+    Tarefas pendentes: $_totalpendentes
+    Tarefas em andamento: $_totalEmAndamento
+    Tarefas canceladas: $_totalCanceladas
+    ''');
+}
 
-//   final Map<String, List<String>> _status;
-//   final double _valorTotalTarefasConcluidas;
-//   final double _valorTotalTarefasPendentes;
+final class RelatorioCompleto extends RelatorioSimples {
+  final double _valorTotalConcluidas;
+  final double _mediaValorPendentes;
+  final int _totalHorasConcluidas;
+  final Set<String> _statusEncontrados;
+  final Map<int, String> _tarefasComDadosIncompletos;
 
-//   Relatorio._interno({
-//     required this._status,
-//     required this._valorTotalTarefasConcluidas,
-//     required this._valorTotalTarefasPendentes,
-//   });
+  RelatorioCompleto({
+    required int totalTarefasAnalisadas,
+    required int totalConcluidas,
+    required int totalpendentes,
+    required int totalEmAndamento,
+    required int totalCanceladas,
+    required this._valorTotalConcluidas,
+    required this._mediaValorPendentes,
+    required this._totalHorasConcluidas,
+    required this._statusEncontrados,
+    required this._tarefasComDadosIncompletos,
+  }) : super(
+         totalConcluidas: totalConcluidas,
+         totalEmAndamento: totalEmAndamento,
+         totalpendentes: totalpendentes,
+         totalCanceladas: totalCanceladas,
+         totalTarefasAnalisadas: totalTarefasAnalisadas,
+       );
 
-//   factory Relatorio.fromTarefas(List<Tarefa> tarefas) {
-//     final Map<String, List<String>> status = {
-//       "concluida": [],
-//       "em andamento": [],
-//       "pendente": [],
-//       "cancelada": [],
-//       "sem status": [],
-//     };
+  @override
+  void gerar() {
+    super.gerar();
+    print('''
 
-//     double valorTotalTarefasConcluidas = 0;
-//     double valorTotalTarefasPendentes = 0;
+      Valor total das concluídas: R\$ $_valorTotalConcluidas
+      Média de valor das pendentes: R\$ $_mediaValorPendentes
+      Total de horas concluídas: $_totalHorasConcluidas
 
-//     for (var tarefa in tarefas) {
-//       status[tarefa.status]!.add(tarefa.titulo);
-//       if (tarefa.status == "concluida") {
-//         valorTotalTarefasConcluidas += tarefa.valor;
-//       }
+      Status encontrados:
+      $_statusEncontrados
 
-//       if (tarefa.status == "pendente") {
-//         valorTotalTarefasPendentes += tarefa.valor;
-//       }
-//     }
-
-//     return Relatorio._interno(
-//       tarefas: tarefas,
-//       status: status,
-//       valorTotalTarefasConcluidas: valorTotalTarefasConcluidas,
-//       valorTotalTarefasPendentes: valorTotalTarefasPendentes,
-//     );
-//   }
-
-//   }
-// k}
+      Tarefas com dados incompletos:
+      $_tarefasComDadosIncompletos
+      ''');
+  }
+}

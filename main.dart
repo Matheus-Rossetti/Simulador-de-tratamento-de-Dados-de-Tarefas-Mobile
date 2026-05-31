@@ -1,3 +1,4 @@
+import 'relatorio.dart';
 import 'tarefa.dart';
 import 'dados.dart';
 
@@ -55,6 +56,7 @@ void main() {
   print("\nHoras por status:");
   horasPorStatus.forEach((status, horas) => print("$status: $horas"));
 
+  final Map<int, String> tarefasComDadosIncompletos = {};
   print("\nTarefas com dados incompletos:");
   tarefas.forEach((e) {
     final List<String> problemas = [];
@@ -65,7 +67,10 @@ void main() {
     if (e.valor == 0.0) problemas.add("Valor ausente");
     if (e.horas == 0) problemas.add("Horas ausentes");
 
-    if (problemas.isNotEmpty) print("- ID ${e.id}: ${problemas.join(", ")}");
+    if (problemas.isNotEmpty) {
+      print("- ID ${e.id}: ${problemas.join(", ")}");
+      tarefasComDadosIncompletos[e.id] = problemas.join(" - ");
+    }
   });
 
   final Set<String> statusEncotrados = {};
@@ -74,9 +79,21 @@ void main() {
   print("\nStatus encontrados:");
   statusEncotrados.forEach((e) => print(e));
 
-  // final relatorio = Relatorio.fromTarefas(tarefas);
-  // relatorio.printarTarefas();
-  // relatorio.printarPorStatus();
-  // relatorio.printarValorTarefasConcluidas();
-  // relatorio.printarMediaValorTarefasPendentes();
+  final relatorioFinal = RelatorioCompleto(
+    totalTarefasAnalisadas: tarefas.length,
+    mediaValorPendentes: calcularMedia(tarefasPendentes),
+    totalConcluidas: tarefas.where((e) => e.status == "concluida").length,
+    totalEmAndamento: tarefas.where((e) => e.status == "em andamento").length,
+    totalpendentes: tarefas.where((e) => e.status == "pendente").length,
+    totalCanceladas: tarefas.where((e) => e.status == "cancelada").length,
+    valorTotalConcluidas: total,
+    totalHorasConcluidas: tarefas
+        .map((e) => e.horas)
+        .reduce((value, element) => value + element),
+    statusEncontrados: statusEncotrados,
+    tarefasComDadosIncompletos: tarefasComDadosIncompletos,
+  );
+
+  print("\nRELATÓRIO FINAL:");
+  relatorioFinal.gerar();
 }
