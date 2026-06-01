@@ -81,13 +81,16 @@ void main() {
 
   final relatorioFinal = RelatorioCompleto(
     totalTarefasAnalisadas: tarefas.length,
-    mediaValorPendentes: calcularMedia(tarefasPendentes),
+    mediaValorPendentes: tarefasPendentes.isEmpty
+        ? 0.0
+        : calcularMedia(tarefasPendentes),
     totalConcluidas: tarefas.where((e) => e.status == "concluida").length,
     totalEmAndamento: tarefas.where((e) => e.status == "em andamento").length,
     totalpendentes: tarefas.where((e) => e.status == "pendente").length,
     totalCanceladas: tarefas.where((e) => e.status == "cancelada").length,
     valorTotalConcluidas: total,
     totalHorasConcluidas: tarefas
+        .where((e) => e.status == "concluida")
         .map((e) => e.horas)
         .reduce((value, element) => value + element),
     statusEncontrados: statusEncotrados,
